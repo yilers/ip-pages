@@ -11,6 +11,6 @@ export const onRequestGet: PagesFunction<Env> = async ({ request, env }) => {
   if (diff) return json(403, 'invalid api key');
   const ip = new URL(request.url).searchParams.get('ip');
   if (!ip || !isIPv4(ip)) return json(400, 'invalid ip address');
-  try { const db = await database(env, request.url); return json(0, 'success', { ip, region: db.search(ip) }); }
+  try { const db = await database(env, request.url); return json(200, 'success', { ip, region: db.search(ip) }); }
   catch { return json(503, 'database unavailable'); }
 };

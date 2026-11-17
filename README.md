@@ -35,7 +35,7 @@ curl 'https://YOUR-SITE.pages.dev/api/ip?ip=114.114.114.114' \
 curl 'https://YOUR-SITE.pages.dev/api/health'
 ```
 
-成功返回 HTTP 200 和 `{"code":0,"message":"success","data":{"ip":"...","region":"..."}}`。未找到匹配段时 region 为空字符串；缺少密钥 401、密钥错误 403、IP 参数错误 400，数据库不可用或未配置服务端密钥时返回 503。API 响应均为 `Cache-Control: no-store`，避免密钥认证结果被共享缓存。健康检查只报告加载状态和 XDB 头部的创建时间；这不是保证数据准确或数据实际更新的日期。
+成功返回 HTTP 200 和 `{"code":200,"message":"success","data":{"ip":"...","region":"..."}}`。未找到匹配段时 region 为空字符串；缺少密钥 401、密钥错误 403、IP 参数错误 400，数据库不可用或未配置服务端密钥时返回 503。API 响应均为 `Cache-Control: no-store`，避免密钥认证结果被共享缓存。健康检查只报告加载状态和 XDB 头部的创建时间；这不是保证数据准确或数据实际更新的日期。
 
 `/api/me` 只返回 Cloudflare 提供的 `CF-Connecting-IP` 中的 IPv4。IPv6 访问者可能没有可用的 IPv4，界面会提示并允许手动查询。本地 Wrangler 不代表真实公网访客，请在部署后验证该功能。查询仅支持 IPv4；保留地址和未知地址依照 XDB 原始内容展示，不推断地理位置。
 

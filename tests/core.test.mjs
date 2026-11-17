@@ -20,6 +20,6 @@ test('API authentication, validation, success and health', async () => {
   assert.equal((await call('?ip=114.114.114.114')).status, 401);
   assert.equal((await call('?ip=114.114.114.114','wrong')).status, 403);
   assert.equal((await call('?ip=999.1.1.1','secret')).status, 400);
-  const response = await call('?ip=114.114.114.114','secret'); assert.equal(response.status, 200); assert.equal((await response.json()).data.region, '测试国|测试省|测试市|测试运营商|ZZ');
+  const response = await call('?ip=114.114.114.114','secret'); assert.equal(response.status, 200); const body = await response.json(); assert.equal(body.code, 200); assert.equal(body.data.region, '测试国|测试省|测试市|测试运营商|ZZ');
   assert.equal((await healthHandler({request:new Request('https://example.com/api/health'),env})).status, 200);
 });
